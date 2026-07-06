@@ -11,18 +11,23 @@ android {
         targetSdkVersion 28
 
         python {
-            buildPython("D:/Programs/Python/Python38/python.exe")
-            pip {
-                install "lxml"
-                install "ujson"
-                install "pyquery"
-                install "requests"
-                install "jsonpath"
-                install "cachetools"
-                install "pycryptodome"
-                install "beautifulsoup4"
+                if (System.getenv("GITHUB_ACTIONS") == "true") {
+                    buildPython("python3")
+                } else {
+                    buildPython("D:/Programs/Python/Python38/python.exe")
+                }
+            
+                pip {
+                    install "lxml"
+                    install "ujson"
+                    install "pyquery"
+                    install "requests"
+                    install "jsonpath"
+                    install "cachetools"
+                    install "pycryptodome"
+                    install "beautifulsoup4"
+                }
             }
-        }
     }
 
     flavorDimensions "abi"
