@@ -9,21 +9,28 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
         with:
-          fetch-depth: 0
+          distribution: temurin
+          java-version: 17
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.8"
+
+      - name: Create local.properties
+        run: echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
 
       - name: Build With Gradle
         run: |
           chmod +x gradlew
-          ./gradlew assemblerelease --build-cache --parallel --daemon --warning-mode all
+          ./gradlew assembleRelease --stacktrace
 
-      - name: Prepare App
-        run: |
-          mkdir -p "${{ github.workspace }}/apk"
-          find ~ -name "*.apk" -exec mv {} "${{ github.workspace }}/apk/" \;
-
-      - name: Upload App To Artifact
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: com.github.tvbox.osc
-          path: ${{ github.workspace }}/apk/*
+          name: TVBox
+          path: "**/*.apk"
