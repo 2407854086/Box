@@ -2,3 +2,43 @@ rootProject.name = "TVBox"
 include ':app'
 include ':quickjs'
 include ':pyramid'
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+    repositories {
+
+        // Google 官方
+        google()
+
+        // Maven Central 官方
+        mavenCentral()
+
+        // Gradle 插件
+        gradlePluginPortal()
+
+        // JitPack（TVBox 很多依赖靠它）
+        maven { url "https://jitpack.io" }
+
+        // =========================
+        // 阿里云仓库（新 + 老 + 兼容）
+        // =========================
+
+        maven { url "https://maven.aliyun.com/repository/central" }
+        maven { url "https://maven.aliyun.com/repository/public" }
+        maven { url "https://maven.aliyun.com/repository/google" }
+        maven { url "https://maven.aliyun.com/repository/gradle-plugin" }
+        maven { url "https://maven.aliyun.com/repository/releases" }
+
+        // 老版 Nexus（兼容历史依赖）
+        maven { url "https://maven.aliyun.com/nexus/content/groups/public" }
+        maven { url "https://maven.aliyun.com/nexus/content/repositories/central" }
+        maven { url "https://maven.aliyun.com/nexus/content/repositories/google" }
+        maven { url "https://maven.aliyun.com/nexus/content/repositories/gradle-plugin" }
+
+        // Apache snapshots
+        maven { url "https://maven.aliyun.com/repository/apache-snapshots" }
+
+        // 官方兜底（非常重要）
+        maven { url "https://repo1.maven.org/maven2/" }
+    }
+}
